@@ -1,5 +1,7 @@
+import 'package:chat_app_2/screens/auth_screen.dart';
 import 'package:chat_app_2/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,12 +10,20 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Firebase.initializeApp();
     return MaterialApp(
       title: 'Flutter Chat!',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: ChatScreen(),
+          primarySwatch: Colors.pink,
+          backgroundColor: Colors.pink,
+          accentColor: Colors.deepPurple,
+          accentColorBrightness: Brightness.dark,
+          buttonTheme: ButtonTheme.of(context).copyWith(
+              buttonColor: Colors.pink,
+              textTheme: ButtonTextTheme.primary,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)))),
+      home: AuthScreen(),
     );
   }
 }
