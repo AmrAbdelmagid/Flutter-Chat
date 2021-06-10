@@ -11,28 +11,36 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Firebase.initializeApp();
-    return MaterialApp(
-      title: 'Flutter Chat!',
-      theme: ThemeData(
-          primarySwatch: Colors.pink,
-          backgroundColor: Colors.pink,
-          accentColor: Colors.deepPurple,
-          accentColorBrightness: Brightness.dark,
-          buttonTheme: ButtonTheme.of(context).copyWith(
-              buttonColor: Colors.pink,
-              textTheme: ButtonTextTheme.primary,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0)))),
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (ctx, userSnapshot) {
-          if (userSnapshot.hasData) {
-            return ChatScreen();
-          }
-          return AuthScreen();
-        },
-      ),
+
+    return FutureBuilder(
+      future: Firebase.initializeApp() ,
+      builder: (ctx, futureSnapshot) {
+        if (futureSnapshot.connectionState == ConnectionState.waiting){
+          return CircularProgressIndicator();
+        }
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+        title: 'Flutter Chat!',
+        theme: ThemeData(
+            primarySwatch: Colors.pink,
+            backgroundColor: Colors.pink,
+            accentColor: Colors.deepPurple,
+            accentColorBrightness: Brightness.dark,
+            buttonTheme: ButtonTheme.of(context).copyWith(
+                buttonColor: Colors.pink,
+                textTheme: ButtonTextTheme.primary,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)))),
+        home: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (ctx, userSnapshot) {
+            if (userSnapshot.hasData) {
+              return ChatScreen();
+            }
+            return AuthScreen();
+          },
+        ),
+      );}
     );
   }
 }

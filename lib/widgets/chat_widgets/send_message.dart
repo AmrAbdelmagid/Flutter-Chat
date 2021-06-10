@@ -20,6 +20,7 @@ class _SendMessageState extends State<SendMessage> {
       'createdAt': Timestamp.now(),
       'userId': user.uid,
       'username' : userData['username'],
+      'userImage':userData['image_url'],
     });
     _sentMessage = '';
     _textController.clear();
