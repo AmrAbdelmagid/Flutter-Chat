@@ -24,12 +24,15 @@ class MyApp extends StatelessWidget {
               textTheme: ButtonTextTheme.primary,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0)))),
-      home: StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(),builder: (ctx, userSnapshot) {
-        if(userSnapshot.hasData){
-          return ChatScreen();
-        }
-        return AuthScreen();
-      },),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (ctx, userSnapshot) {
+          if (userSnapshot.hasData) {
+            return ChatScreen();
+          }
+          return AuthScreen();
+        },
+      ),
     );
   }
 }
